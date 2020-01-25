@@ -90,44 +90,12 @@
       </div>
     </div>
     <!-- 菜单栏 -->
-    <transition name="fade" v-for="(item, index) in panelData" :key="index">
-      <div class="detail-item-panel" :duration="{ enter: 100, leave: 100 }" v-show="actionNav === index" @mouseenter="showDetail(index)" :ref="index" :style="{left: left + 'px', top: top + 'px'}" @mouseleave="hideDetail(index)">
+    <transition name="fade" v-for="(item, pindex) in panelData" :key="pindex">
+      <div class="detail-item-panel" :duration="{ enter: 100, leave: 100 }" v-show="actionNav === pindex" @mouseenter="showDetail(pindex)" :ref="pindex" :style="{left: left + 'px', top: top + 'px'}" @mouseleave="hideDetail(pindex)">
         <div class="nav-detail-item">
           <span v-for="(item, index) in item.navTags" :key="index">{{item}} > </span>
         </div>
         <ul>
-          <li v-for="(items, index) in item.classNav" :key="index" class="detail-item-row">
-            <span class="detail-item-title">{{items.title}}
-              <span class="glyphicon glyphicon-menu-right"></span>
-            </span>
-            <router-link :to="{path: '/goodsList', query: { sreachData: item }}" v-for="(item, subIndex) in items.tags" :key="subIndex">
-              <span class="detail-item">{{item}}</span>
-            </router-link>
-          </li>
-          <li v-for="(items, index) in item.classNav" :key="index" class="detail-item-row">
-            <span class="detail-item-title">{{items.title}}
-              <span class="glyphicon glyphicon-menu-right"></span>
-            </span>
-            <router-link :to="{path: '/goodsList', query: { sreachData: item }}" v-for="(item, subIndex) in items.tags" :key="subIndex">
-              <span class="detail-item">{{item}}</span>
-            </router-link>
-          </li>
-          <li v-for="(items, index) in item.classNav" :key="index" class="detail-item-row">
-            <span class="detail-item-title">{{items.title}}
-              <span class="glyphicon glyphicon-menu-right"></span>
-            </span>
-            <router-link :to="{path: '/goodsList', query: { sreachData: item }}" v-for="(item, subIndex) in items.tags" :key="subIndex">
-              <span class="detail-item">{{item}}</span>
-            </router-link>
-          </li>
-          <li v-for="(items, index) in item.classNav" :key="index" class="detail-item-row">
-            <span class="detail-item-title">{{items.title}}
-              <span class="glyphicon glyphicon-menu-right"></span>
-            </span>
-            <router-link :to="{path: '/goodsList', query: { sreachData: item }}" v-for="(item, subIndex) in items.tags" :key="subIndex">
-              <span class="detail-item">{{item}}</span>
-            </router-link>
-          </li>
           <li v-for="(items, index) in item.classNav" :key="index" class="detail-item-row">
             <span class="detail-item-title">{{items.title}}
               <span class="glyphicon glyphicon-menu-right"></span>
