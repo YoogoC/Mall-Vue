@@ -35,7 +35,6 @@
 
 <script>
 import store from '@/vuex/store';
-import { sign } from '@/utils/tool';
 import { mapMutations, mapActions } from 'vuex';
 export default {
   name: 'Login',
@@ -62,12 +61,11 @@ export default {
     ...mapActions(['login']),
     handleSubmit (name) {
       const father = this;
-      console.log(this.formDate.username);
       this.$refs[name].validate((valid) => {
         if (valid) {
           const data = {
-            phone: this.formDate.username,
-            password: sign(this.formDate.password)
+            username: this.formDate.username,
+            password: this.formDate.password
           };
           this.login(data).then(data => {
             console.log(data);

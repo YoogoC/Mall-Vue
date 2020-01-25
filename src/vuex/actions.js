@@ -33,9 +33,9 @@ export const signUp = ({ commit }, data) => {
 export const login = ({ commit }, data) => {
   return new Promise((resolve, reject) => {
     baseApi.login(data).then(res => {
-      const data = res.data;
-      if (data.rcode === 0) {
-        commit('SET_USER_LOGIN_INFO', data.result);
+      const result = res.data;
+      if (result.code === 200) {
+        commit('SET_USER_LOGIN_INFO', result.data);
         resolve(true);
       } else {
         resolve(false);
@@ -50,6 +50,10 @@ export const login = ({ commit }, data) => {
 export const isExp = () => {
   return new Promise((resolve, reject) => {
     let info = localStorage.getItem('info');
+    if (info == null) {
+      resolve(true);
+      return;
+    }
     if (!info) {
       resolve(false);
       return;

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
     "crypto": "^1.0.1",
     "iview": "^2.13.1",
     "v-distpicker": "^1.0.17",

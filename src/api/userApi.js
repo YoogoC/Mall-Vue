@@ -3,7 +3,9 @@ import http from '@/utils/http';
 const post = (data) => {
   const info = JSON.parse(localStorage.getItem('info'));
   data.method = 'POST';
-  data.headers = { 'x-access-token': info.data.token };
+  data.headers = {
+    'Authorization': info.data.tokenHead + info.data.token
+  };
   return http(data);
 };
 

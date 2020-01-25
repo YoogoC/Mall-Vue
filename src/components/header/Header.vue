@@ -100,9 +100,9 @@ export default {
       if (!result) {
         localStorage.removeItem('info');
         this.FLASH_USER_INFO();
+        this.loadShoppingCart();
       }
     });
-    this.loadShoppingCart();
   },
   data () {
     return {
