@@ -54,3 +54,11 @@ export const getOneGoods = (goodsId) => {
     }
   });
 };
+
+// 根据父分类id获取分类
+export const getCategory = (parentId) => {
+  return http({
+    url: '/home/productCateList/' + parentId,
+    method: 'get'
+  });
+};

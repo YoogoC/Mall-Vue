@@ -416,7 +416,7 @@ export const loadShoppingCart = ({ commit }) => {
   return new Promise((resolve, reject) => {
     userApi.getShoppingCart().then(res => {
       console.log(res.data);
-      commit('SET_SHOPPING_CART', res.data.result.data);
+      commit('SET_SHOPPING_CART', res.data.data);
     });
   });
 };

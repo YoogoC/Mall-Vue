@@ -42,7 +42,7 @@
             <DropdownMenu slot="list">
               <div class="shopping-cart-null" v-show="shoppingCart.length <= 0">
                 <Icon type="ios-cart-outline" class="cart-null-icon"></Icon>
-                <span>你的购物车没有空空哦</span>
+                <span>你的购物车空空哦</span>
                 <span>赶快去添加商品吧~</span>
               </div>
               <div class="shopping-cart-list" v-show="shoppingCart.length > 0">

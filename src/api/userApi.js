@@ -9,6 +9,15 @@ const post = (data) => {
   return http(data);
 };
 
+const get = (data) => {
+  const info = JSON.parse(localStorage.getItem('info'));
+  data.method = 'get';
+  data.headers = {
+    'Authorization': info.data.tokenHead + info.data.token
+  };
+  return http(data);
+};
+
 // 添加收货地址
 export const addAddress = (data) => {
   return post({
@@ -58,8 +67,8 @@ export const addShoppingCart = (data) => {
 
 // 获取购物车信息
 export const getShoppingCart = () => {
-  return post({
-    url: '/u/cart_list'
+  return get({
+    url: '/cart/list'
   });
 };
 
