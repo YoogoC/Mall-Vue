@@ -5,7 +5,24 @@ export const SET_SIGN_UP_SETP = (state, step) => {
 
 // 设置用户登录信息
 export const SET_USER_LOGIN_INFO = (state, data) => {
-  state.userInfo = data;
+  const info = {
+    data: data,
+    exp: new Date().getTime() + (3600 * 60 * 1000)
+  };
+  localStorage.setItem('info', JSON.stringify(info));
+  state.userInfo = info;
+};
+
+// 更新用户信息
+export const FLASH_USER_INFO = (state, data) => {
+  const info = localStorage.getItem('info');
+  state.userInfo = info === null ? {} : JSON.parse(info);
+};
+
+// 用户登出
+export const SIGN_OUT_USER = (state) => {
+  localStorage.removeItem('info');
+  state.userInfo = {};
 };
 
 // 设置加载状态
@@ -20,7 +37,10 @@ export const SET_SECKILLS_INFO = (state, seckills) => {
 };
 
 // 设置轮播(营销)图
-export const SET_CAROUSELITEMS_INFO = (state, { carouselItems, activity }) => {
+export const SET_CAROUSELITEMS_INFO = (state, {
+  carouselItems,
+  activity
+}) => {
   state.marketing.CarouselItems = carouselItems;
   state.marketing.activity = activity;
 };
@@ -48,33 +68,30 @@ export const REDUCE_SECKILLS_TIME = state => {
   }
 };
 
-// 设置商品列表(搜索)
-export const SET_GOODS_LIST = (state, data) => {
-  state.goodsList = data.goodsList;
-  state.asItems = data.asItems;
-};
-
 // 设置商品列表排序
 export const SET_GOODS_ORDER_BY = (state, data) => {
   state.orderBy = data;
 };
 
+// 设置商品列表(搜索)
+export const SET_GOODS_INFO_BY_NAME = (state, data) => {
+  state.goodsInfoByName = data;
+};
+
+// 设置商户商品列表
+export const SET_GOODS_INFO_BY_MERCHANT_ID = (state, data) => {
+  state.goodsInfoByMerchanrtId = data;
+};
+
 // 设置商品详细信息
-export const SET_GOODS_INFO = (state, data) => {
-  state.goodsInfo = data;
+export const SET_GOODS_DETAIL = (state, data) => {
+  console.log(data);
+  state.goodsDetail = data;
 };
 
 // 添加购物车
 export const ADD_SHOPPING_CART = (state, data) => {
-  const item = {
-    goods_id: data.goods_id,
-    count: data.count,
-    img: data.package.img,
-    package: data.package.intro,
-    price: data.package.price,
-    title: data.title
-  };
-  state.shoppingCart.push(item);
+  state.shoppingCart.push(data);
   state.newShoppingCart = data;
 };
 
@@ -91,4 +108,27 @@ export const SET_RECOMMEND_INFO = (state, data) => {
 // 设置收获地址
 export const SET_USER_ADDRESS = (state, data) => {
   state.address = data;
+};
+
+// 设置验证码
+export const SET_CHECK_NUM = (state, data) => {
+  state.checkNum = data;
+};
+
+// 设置订单信息
+export const SET_USER_ORDER_INFO = (state, data) => {
+  console.log(data);
+  state.order = data;
+};
+
+// 移除购物车信息
+export const REMOVE_SHOPPING_CART = (state, data) => {
+  for (const item of data) {
+    for (let i = 0; i < state.shoppingCart.length; i++) {
+      if (item === state.shoppingCart[i].id) {
+        state.shoppingCart.splice(i, 1);
+        break;
+      }
+    }
+  }
 };

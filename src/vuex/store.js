@@ -10,27 +10,16 @@ export default new Vuex.Store({
   state: {
     isLoading: false, // 是否展示loading动画
     orderBy: 'sale', // 根据什么字段排序
-    goodsInfo: { // 商品详情
-      goodsImg: [],
-      title: '',
-      tags: [],
-      discount: [],
-      promotion: [],
-      remarksNum: 0,
-      setMeal: [],
-      hot: [],
-      goodsDetail: [],
-      param: [],
-      remarks: []
-    },
-    userInfo: { // 用户信息
-      username: ''
-    },
+    goodsInfoByName: [], // 根据商品名称的列表
+    goodsDetail: {}, // 商品详情
+    goodsInfoByMerchanrtId: [], // 商户商品列表
+    userInfo: {}, // 用户信息
     signUpStep: 0, // 登陆步骤
     marketing: { // 营销
       CarouselItems: [], // 轮播图
       activity: [] // 活动
     },
+    order: [], // 订单信息
     seckills: { // 秒杀
       deadline: {
         hours: 0,
@@ -45,7 +34,8 @@ export default new Vuex.Store({
     goodsList: [], // 商品列表
     shoppingCart: [], // 购物车
     newShoppingCart: [], // 刚加入的购物车，作为展示
-    recommend: [] // 推荐购买
+    recommend: [], // 推荐购买
+    address: []
   },
   getters,
   actions,

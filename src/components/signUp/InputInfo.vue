@@ -60,23 +60,29 @@ export default {
   },
   methods: {
     ...mapMutations(['SET_SIGN_UP_SETP']),
-    ...mapActions(['addSignUpUser']),
+    ...mapActions(['signUp']),
     handleSubmit (name) {
       const father = this;
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$Message.success('注册成功');
-          const userinfo = {
+          const data = {
             username: this.formValidate.name,
+            phone: this.$route.query.phone,
             password: this.formValidate.password,
             mail: this.formValidate.mail,
-            phone: this.$route.query.phone
+            status: 0
           };
-          this.addSignUpUser(userinfo);
-          father.SET_SIGN_UP_SETP(2);
-          this.$router.push({ path: '/SignUp/signUpDone' });
+          this.signUp(data).then(data => {
+            if (data) {
+              father.$Message.success('注册成功');
+              father.SET_SIGN_UP_SETP(2);
+              father.$router.push({ path: '/SignUp/signUpDone' });
+            } else {
+              this.$Message.error('注册失败, 请重新注册');
+            }
+          });
         } else {
-          this.$Message.error('注册失败');
+          this.$Message.error('注册失败, 请先填写完正确信息');
         }
       });
     }

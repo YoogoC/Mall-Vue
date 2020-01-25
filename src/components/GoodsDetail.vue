@@ -35,7 +35,8 @@ export default {
     next();
   },
   created () {
-    this.loadGoodsInfo();
+    this.loadGoodsInfo(this.$route.query.goodsId);
+    this.getGoodsByMerchantId(this.$route.query.merchantId);
   },
   data () {
     return {
@@ -43,7 +44,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['loadGoodsInfo'])
+    ...mapActions(['loadGoodsInfo', 'getGoodsByMerchantId'])
   },
   computed: {
     ...mapState(['goodsInfo', 'isLoading'])

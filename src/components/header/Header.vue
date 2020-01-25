@@ -18,24 +18,18 @@
         </li>
       </ul>
       <ul class="detail">
-        <li class="first" v-show="!userInfo.username">
+        <li class="first" v-show="isShow">
           你好，请<router-link to="/login">登录 <Icon type="person"></Icon></router-link> |<span class="text-color-red"><router-link to="/SignUp">免费注册 <Icon type="person-add"></Icon></router-link></span>
         </li>
-        <li v-show="!!userInfo.username">
+        <li v-show="!isShow">
           <Dropdown>
             <p class="username-p">
-              <Avatar class="person-icon" icon="person" size="small" /> <span class="username">{{userInfo.username}} </span>
+              <Avatar class="person-icon" icon="person" size="small" /> <span class="username">{{ username }} </span>
             </p>
             <DropdownMenu slot="list">
                 <div class="my-page">
-                  <div class="my-info" @click="myInfo">
-                    <Icon type="home"></Icon>
-                    <p>我的主页</p>
-                  </div>
-                  <div class="sign-out" @click="signOutFun">
-                    <Icon type="log-out"></Icon>
-                    <p>退出登录</p>
-                  </div>
+                  <router-link to="/home"><Button type="error">我的信息</Button></router-link>
+                  <Button class="sign-out" @click="signOut" type="warning">退出登陆</Button>
                 </div>
             </DropdownMenu>
           </Dropdown>
@@ -58,13 +52,13 @@
                   </div>
                   <div class="shopping-cart-info">
                     <div class="shopping-cart-title">
-                      <p>{{item.title.substring(0, 22)}}...</p>
+                      <p>{{item.title.substring(0, 18)}}...</p>
                     </div>
                     <div class="shopping-cart-detail">
                       <p>
                         套餐:
                         <span class="shopping-cart-text">
-                          {{item.package}}
+                          {{item.attrTitle.substring(0, 5)}}
                         </span>
                         数量:
                         <span class="shopping-cart-text">
@@ -72,7 +66,7 @@
                         </span>
                         价钱:
                         <span class="shopping-cart-text">
-                          {{item.price}}
+                          {{item.price.toFixed(2)}}
                         </span>
                       </p>
                     </div>
@@ -97,11 +91,18 @@
 
 <script>
 import store from '@/vuex/store';
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapMutations, mapActions } from 'vuex';
 export default {
   name: 'M-Header',
   created () {
-    this.isLogin();
+    // 验证登陆信息是否过期
+    this.isExp().then(result => {
+      if (!result) {
+        localStorage.removeItem('info');
+        this.FLASH_USER_INFO();
+      }
+    });
+    this.loadShoppingCart();
   },
   data () {
     return {
@@ -115,23 +116,36 @@ export default {
     };
   },
   computed: {
-    ...mapState(['userInfo', 'shoppingCart'])
+    ...mapState(['userInfo', 'shoppingCart']),
+    username () {
+      if (!this.userInfo.data) {
+        return '';
+      } else {
+        return this.userInfo.data.username;
+      }
+    },
+    isShow () {
+      return !this.userInfo.data;
+    }
   },
   methods: {
-    ...mapActions(['signOut', 'isLogin']),
+    ...mapMutations(['FLASH_USER_INFO', 'SIGN_OUT_USER']),
+    ...mapActions(['isExp', 'loadShoppingCart']),
     changeCity (city) {
       this.city = city;
     },
     goToPay () {
       this.$router.push('/order');
     },
-    myInfo () {
-      this.$router.push('/home');
-    },
-    signOutFun () {
-      this.signOut();
+    signOut () {
+      this.SIGN_OUT_USER();
       this.$router.push('/');
     }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      this.FLASH_USER_INFO();
+    });
   },
   store
 };
