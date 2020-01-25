@@ -13,7 +13,7 @@
           <div class="form-box">
             <Form ref="formInline" :model="formDate" :rules="ruleInline">
               <FormItem prop="username">
-                  <i-input type="text" v-model="formDate.username" clearable size="large" placeholder="手机号">
+                  <i-input type="text" v-model="formDate.username" clearable size="large" placeholder="用户名">
                       <Icon type="person" slot="prepend"></Icon>
                   </i-input>
               </FormItem>
@@ -47,12 +47,12 @@ export default {
       },
       ruleInline: {
         username: [
-          { required: true, message: '请输入手机号', trigger: 'blur' },
-          { type: 'string', pattern: /^1[3|4|5|7|8][0-9]{9}$/, message: '手机号格式出错', trigger: 'blur' }
+          { required: true, message: '请输入用户名', trigger: 'blur' }
+          // { type: 'string', pattern: /^1[3|4|5|7|8][0-9]{9}$/, message: '手机号格式出错', trigger: 'blur' }
         ],
         password: [
-          { required: true, message: '请输入密码', trigger: 'blur' },
-          { type: 'string', min: 6, message: '密码不能少于6位', trigger: 'blur' }
+          { required: true, message: '请输入密码', trigger: 'blur' }
+          // { type: 'string', min: 6, message: '密码不能少于6位', trigger: 'blur' }
         ]
       }
     };
@@ -70,6 +70,7 @@ export default {
             password: sign(this.formDate.password)
           };
           this.login(data).then(data => {
+            console.log(data);
             if (data) {
               this.$Message.success('登陆成功');
               father.$router.push('/');
