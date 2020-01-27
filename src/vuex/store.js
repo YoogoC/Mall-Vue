@@ -16,8 +16,12 @@ export default new Vuex.Store({
     userInfo: {}, // 用户信息
     signUpStep: 0, // 登陆步骤
     marketing: { // 营销
-      CarouselItems: [], // 轮播图
-      activity: [] // 活动
+      advertiseList: [], // 轮播图
+      brandList: [], // 推荐品牌
+      homeFlashPromotion: [], // 当前秒杀场次
+      newProductList: [], // 新品推荐
+      hotProductList: [], // 人气推荐
+      subjectList: [] // 推荐专题
     },
     order: [], // 订单信息
     seckills: { // 秒杀

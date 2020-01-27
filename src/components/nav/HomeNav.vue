@@ -20,17 +20,17 @@
         <!-- 幻灯片 -->
         <div>
           <Carousel autoplay loop>
-              <CarouselItem  v-for="(item, index) in marketing.CarouselItems" :key="index">
+              <CarouselItem  v-for="(item, index) in marketing.advertiseList" :key="index">
                 <router-link :to="{path: '/goodsList', query: { sreachData: '电脑'}}">
-                  <img :src="item">
+                  <img :src="item.pic">
                 </router-link>
               </CarouselItem>
           </Carousel>
         </div>
-        <div class="nav-show">
-          <div class="nav-show-img" v-for="(item, index) in marketing.activity" :key="index">
+        <div class="nav-show" v-if="false">
+          <div class="nav-show-img" v-for="(item, index) in marketing.brandList" :key="index">
             <router-link :to="{path: '/goodsList', query: { sreachData: '电脑'}}">
-              <img :src="item">
+              <img :src="item.logo">
             </router-link>
           </div>
         </div>

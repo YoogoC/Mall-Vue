@@ -1,5 +1,12 @@
 import http from '@/utils/http';
 
+export const homeContent = () => {
+  return http({
+    url: '/home/content',
+    method: 'get'
+  });
+};
+
 export const login = (data) => {
   return http({
     url: '/sso/login',

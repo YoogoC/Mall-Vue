@@ -18,10 +18,10 @@
         </li>
       </ul>
       <ul class="detail">
-        <li class="first" v-show="isShow">
+        <li class="first" v-if="isShow">
           你好，请<router-link to="/login">登录 <Icon type="person"></Icon></router-link> |<span class="text-color-red"><router-link to="/SignUp">免费注册 <Icon type="person-add"></Icon></router-link></span>
         </li>
-        <li v-show="!isShow">
+        <li v-if="!isShow">
           <Dropdown>
             <p class="username-p">
               <Avatar class="person-icon" icon="person" size="small" /> <span class="username">{{ username }} </span>
@@ -40,12 +40,12 @@
               <Icon type="ios-cart-outline"></Icon> 购物车
             </a>
             <DropdownMenu slot="list">
-              <div class="shopping-cart-null" v-show="shoppingCart.length <= 0">
+              <div class="shopping-cart-null" v-if="shoppingCart.length <= 0">
                 <Icon type="ios-cart-outline" class="cart-null-icon"></Icon>
                 <span>你的购物车空空哦</span>
                 <span>赶快去添加商品吧~</span>
               </div>
-              <div class="shopping-cart-list" v-show="shoppingCart.length > 0">
+              <div class="shopping-cart-list" v-if="shoppingCart.length > 0">
                 <div class="shopping-cart-box" v-for="(item,index) in shoppingCart" :key="index">
                   <div class="shopping-cart-img">
                     <img :src="item.img">

@@ -121,20 +121,17 @@ export const loadSeckillsInfo = ({ commit }) => {
 // 获取轮播(营销)图片
 export const loadCarouselItems = ({ commit }) => {
   return new Promise((resolve, reject) => {
-    const data = {
-      carouselItems: [
-        'static/img/nav/1.jpg',
-        'static/img/nav/2.jpg',
-        'static/img/nav/3.jpg',
-        'static/img/nav/4.jpg',
-        'static/img/nav/5.jpg'
-      ],
-      activity: [
-        'static/img/nav/nav_showimg1.jpg',
-        'static/img/nav/nav_showimg2.jpg'
-      ]
-    };
-    commit('SET_CAROUSELITEMS_INFO', data);
+    baseApi.homeContent().then(res => {
+      const result = res.data;
+      if (result.code === 200) {
+        commit('SET_CAROUSELITEMS_INFO', result.data);
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    }).catch(error => {
+      reject(error);
+    });
   });
 };
 
@@ -415,8 +412,12 @@ export const editAddress = ({ commit }, data) => {
 export const loadShoppingCart = ({ commit }) => {
   return new Promise((resolve, reject) => {
     userApi.getShoppingCart().then(res => {
-      console.log(res.data);
-      commit('SET_SHOPPING_CART', res.data.data);
+      if (res.data.code === 200) {
+        commit('SET_SHOPPING_CART', res.data.data);
+        resolve(true);
+      } else {
+        resolve(false);
+      }
     });
   });
 };

@@ -38,11 +38,19 @@ export const SET_SECKILLS_INFO = (state, seckills) => {
 
 // 设置轮播(营销)图
 export const SET_CAROUSELITEMS_INFO = (state, {
-  carouselItems,
-  activity
+  advertiseList,
+  brandList,
+  homeFlashPromotion,
+  newProductList,
+  hotProductList,
+  subjectList
 }) => {
-  state.marketing.CarouselItems = carouselItems;
-  state.marketing.activity = activity;
+  state.marketing.advertiseList = advertiseList.filter(x => x.status === 1);
+  state.marketing.brandList = brandList;
+  state.marketing.homeFlashPromotion = homeFlashPromotion;
+  state.marketing.newProductList = newProductList;
+  state.marketing.hotProductList = hotProductList;
+  state.marketing.subjectList = subjectList;
 };
 
 // 设置电脑专栏数据
