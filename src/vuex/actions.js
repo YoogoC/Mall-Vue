@@ -1,5 +1,8 @@
 import * as baseApi from '@/api/baseApi';
 import * as userApi from '@/api/userApi';
+import {
+  goodsList
+} from '@/api/searchApi';
 // 判断手机是否存在
 export const isExist = ({ commit }, data) => {
   return new Promise((resolve, reject) => {
@@ -439,9 +442,9 @@ export const addAddress = ({ commit }, data) => {
 export const getGoodsByName = ({ commit }, data) => {
   commit('SET_LOAD_STATUS', true);
   return new Promise((resolve, reject) => {
-    baseApi.goodsList(data).then(res => {
-      console.log(res.data.result);
-      commit('SET_GOODS_INFO_BY_NAME', res.data.result.data);
+    goodsList(data).then(res => {
+      console.log(res.data.data);
+      commit('SET_GOODS_INFO_BY_NAME', res.data.data.list);
       commit('SET_LOAD_STATUS', false);
     });
   });
@@ -451,7 +454,7 @@ export const getGoodsByName = ({ commit }, data) => {
 export const getGoodsByMerchantId = ({ commit }, data) => {
   commit('SET_LOAD_STATUS', true);
   return new Promise((resolve, reject) => {
-    baseApi.goodsList(null, data).then(res => {
+    goodsList(null, data).then(res => {
       console.log(res.data.result);
       commit('SET_GOODS_INFO_BY_MERCHANT_ID', res.data.result.data);
       commit('SET_LOAD_STATUS', false);

@@ -35,7 +35,7 @@ export default {
     next();
   },
   created () {
-    this.loadGoodsInfo(this.$route.query.goodsId);
+    // this.loadGoodsInfo(this.$route.query.goodsId);
     this.getGoodsByMerchantId(this.$route.query.merchantId);
   },
   data () {
@@ -44,10 +44,10 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['loadGoodsInfo', 'getGoodsByMerchantId'])
+    // ...mapActions(['loadGoodsInfo', 'getGoodsByMerchantId'])
   },
   computed: {
-    ...mapState(['goodsInfo', 'isLoading'])
+    // ...mapState(['goodsInfo', 'isLoading'])
   },
   components: {
     Search,

@@ -49,7 +49,7 @@
           <div class="goods-list">
             <div class="goods-show-info" v-for="(item, index) in goodsInfoByNameFilter" :key="index">
               <div class="goods-show-img">
-                <router-link :to="{ path: '/goodsDetail', query: { goodsId: item.goodsId, merchantId: item.merchantId } }"><img :src="item.goodsImgs"/></router-link>
+                <router-link :to="{ path: '/goodsDetail', query: { goodsId: item.id} }"><img :src="item.pic"/></router-link>
               </div>
               <div class="goods-show-price">
                 <span>
@@ -58,13 +58,10 @@
                 </span>
               </div>
               <div class="goods-show-detail">
-                <span>{{item.goodsName}}</span>
+                <span>{{item.name}}</span>
               </div>
               <div class="goods-show-num">
-                已有<span>{{item.salesNum || 0}}</span>人购买
-              </div>
-              <div class="goods-show-seller">
-                <span>{{item.merchantName}}</span>
+                已有<span>{{item.sale || 0}}</span>人购买
               </div>
             </div>
           </div>

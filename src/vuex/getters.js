@@ -1,68 +1,30 @@
-// 字段排序函数
-const compare = property => {
-  return function (a, b) {
-    var value1 = a[property];
-    var value2 = b[property];
-    return value1 - value2;
-  };
-};
-
 // 获取排序后的列表
 export const goodsInfoByNameFilter = state => {
-  const goodsList = [];
-  for (const item of state.goodsInfoByName) {
-    console.log(item.basicPrice);
-    const temp = {
-      goodsId: item.id,
-      goodsName: item.goodsName.substring(0, 39) + '...',
-      merchantName: item.merchant.merchantName,
-      merchantId: item.merchant.id,
-      goodsImgs: item.goodsImgs.split(',')[0],
-      price: item.basicPrice,
-      salesNum: item.salesNum
-    };
-    goodsList.push(temp);
-  }
-  return goodsList || [];
+  const goodsList = state.goodsInfoByName;
+  console.log(state.goodsInfoByName);
+  return goodsList;
 };
 
 // 获取商品侧边广告栏
 export const merchantItem = state => {
   if (state.goodsInfoByMerchanrtId.length <= 0) return [];
-  const asAll = state.goodsInfoByMerchanrtId.sort(compare('salesNum'));
-  const asItem = [];
-  for (let i = 0; i < 6; i++) {
-    const temp = {
-      goodsId: asAll[i].id,
-      goodsName: asAll[i].goodsName.substring(0, 30) + '...',
-      merchantName: asAll[i].merchant.merchantName,
-      merchantId: asAll[i].merchant.id,
-      img: asAll[i].goodsImgs.split(',')[0],
-      price: asAll[i].basicPrice,
-      sale: asAll[i].salesNum
-    };
-    asItem.push(temp);
-  }
-  return asItem || [];
+  const asAll = state.goodsInfoByMerchanrtId; // .sort(compare('salesNum'));
+  return asAll || [];
 };
 
 // 商家侧边栏
 export const asItem = state => {
   if (state.goodsInfoByName.length <= 0) return [];
-  const asAll = state.goodsInfoByName.sort(compare('salesNum'));
-  const asItem = [];
-  for (let i = 0; i < 6; i++) {
-    const temp = {
-      goodsId: asAll[i].id,
-      goodsName: asAll[i].goodsName.substring(0, 30) + '...',
-      merchantName: asAll[i].merchant.merchantName,
-      merchantId: asAll[i].merchant.id,
-      goodsImgs: asAll[i].goodsImgs.split(',')[0],
-      price: asAll[i].basicPrice,
-      salesNum: asAll[i].salesNum
+  const asAll = state.goodsInfoByName; // .sort(compare('salesNum'));
+  const asItem = asAll.map(function (x) {
+    return {
+      goodsId: x.id,
+      goodsName: x.name,
+      goodsImgs: x.pic,
+      price: x.price,
+      salesNum: x.sale
     };
-    asItem.push(temp);
-  }
+  });
   return asItem || [];
 };
 
